@@ -1,0 +1,42 @@
+/* You can add global styles to this file, and also import other style files */
+@mixin font($font-family, $font-file) {
+    @font-face {
+      font-family: $font-family;
+      src: url($font-file+'.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+}
+
+$body-font : 'Roboto';
+$body-colour: #fff;
+$anchor-colour: #1d5997;
+$anchor-colour-hover: #143b63;
+
+$heading1-size: 0.8em;
+$heading2-size: 1.4em;
+
+
+@include font("Roboto", "https://fonts.googleapis.com/css?family=Roboto:400,700");
+
+body {
+    background: $body-colour;
+    font-family: $body-font;
+}
+
+p, a, h1, h2, h3, h4 {
+    font-family: $body-font, sans-serif;
+}
+
+#flickr-app h2 {
+    font-size: $heading2-size;
+}
+
+#flickr-app a {
+    color: $anchor-colour;
+    &:hover {
+        color:$anchor-colour-hover;
+        text-decoration: none;
+    }
+}
+
