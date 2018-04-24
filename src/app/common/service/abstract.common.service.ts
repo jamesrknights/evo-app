@@ -40,7 +40,6 @@ export abstract class AbstractCommonService implements CommonService {
 
     public getData () : any {
         let result = null;
-        
         if (!this.helper.isNull(this.http)) {
             switch (this.configuration.getResponseType().toLowerCase()) {
                 case "jsonp":
@@ -99,7 +98,7 @@ export abstract class AbstractCommonService implements CommonService {
 
     private post () {
         try {
-            this.http.post(this.getURI(), {"userName" : "cmartin", "password" : "123"}).map(
+            this.http.post(this.getURI(), {}, this.configuration.getHttpHeaderOptions()).map(
                 (res) => res
                 ).subscribe(
                 (data) => {this.processResponse(data)}, 

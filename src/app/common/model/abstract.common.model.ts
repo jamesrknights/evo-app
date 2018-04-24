@@ -2,7 +2,7 @@ import { CommonModel } from '../../common/model/common.model';
 
 export abstract class AbstractCommonModel implements CommonModel {
 
-    set (propertyName : string, propertyValue : string, source : any) : void {}
+    set (propertyName : string, propertyValue : object, source : any) : void {}
     
     get (propertyName : string) : any {}
 

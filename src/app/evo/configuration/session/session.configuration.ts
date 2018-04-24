@@ -5,16 +5,17 @@ import { HttpHeaders } from '@angular/common/http';
 import { AppHelper } from '../../../util/apphelper';
 
 //change these values
-const uri =  "http://localhost:8080/api/v1/session/start";
+const uri =  "http://localhost:8090/v1/authentication/authenticate";
 const format = "application/json";
 const entityType = "SESSION";
 const defaultEvent = new Map<String, String>();
 const eventTypes = ["change", "default", "set"];
-const requestType = "POST";
+const requestType = "GET";
 const responseType = "JSON";
 const httpOptions = {
     headers: new HttpHeaders({ 
-        "Accept": "*/*"
+        "Accept": "*/*",
+        "Credentials": "uid=Super&pwd=S3cret"
     })}
 const callback = null;
 

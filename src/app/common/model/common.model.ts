@@ -1,6 +1,6 @@
 export interface CommonModel {
 
-    set (propertyName : string, propertyValue : string, source : any) : void;
+    set (propertyName : string, propertyValue : object, source : any) : void;
     
     get (propertyName : string) : any;
 

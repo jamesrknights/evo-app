@@ -1,46 +1,50 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { CommonEventHandler } from '../../../common/handler/common.event.handler';
 import { AppHelper } from '../../../util/apphelper';
+import { AbstractCommonModel } from '../../../common/model/abstract.common.model';
+import { Session } from '../../model/session/session.model';
 
 @Injectable()
 export class SessionEventHandler implements CommonEventHandler {
 
-    constructor (private helper : AppHelper) {}
+    private model : AbstractCommonModel;
 
-    public change (data) {
+    constructor (private helper : AppHelper) {
+        this.model = new Session();
+    }
+
+    public change (data, txData : AbstractCommonModel) {
         console.log("change heard", data);
     }
 
-    public set (data) {
+    public set (data, txData : AbstractCommonModel) {
         console.log("change set");
     }
 
-    public default (data) {
-        let result = null;
+    public default (data, txData : AbstractCommonModel) {
         console.log("change default");
-        if (!this.helper.isNull(data)) {
+        if (!this.helper.isNull(data) && !this.helper.isNull(txData)) {
             try {
-                result = data["sessionId"];
+                txData.set("status", data["status"], this);
             } catch (e) {
                 console.error("Cannot set session", e);
             }
         }
-        return result;
     }
 
-    public handleEvent (eventType : string, data) {
+    public handleEvent (eventType : string, data, txData : AbstractCommonModel) {
         switch (eventType.toLowerCase()) {
             case "change": 
-                this.change(data);
+                this.change(data, txData);
                 break;
             case "default":
-                this.default(data);
+                this.default(data, txData);
                 break;
             case "set":
-                this.set(data);
+                this.set(data, txData);
                 break;
             default:
-                this.default(data);
+                this.default(data, txData);
         }
     }
 }
