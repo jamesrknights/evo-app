@@ -25,7 +25,7 @@ export class SessionEventHandler implements CommonEventHandler {
         console.log("change default");
         if (!this.helper.isNull(data) && !this.helper.isNull(txData)) {
             try {
-                txData.set("status", data["status"], this);
+                txData.set("sessionId", data["sessionId"], this);
             } catch (e) {
                 console.error("Cannot set session", e);
             }

@@ -38,7 +38,7 @@ export abstract class AbstractCommonService implements CommonService {
         return result;
     }
 
-    public getData () : any {
+    public getData (params) : any {
         let result = null;
         if (!this.helper.isNull(this.http)) {
             switch (this.configuration.getResponseType().toLowerCase()) {
@@ -46,7 +46,7 @@ export abstract class AbstractCommonService implements CommonService {
                     this.jsonpCall();
                     break;
                 case "json":
-                    this.jsonCall();
+                    this.jsonCall(params);
                     break;
                 default:
                     console.error("No response type is configured");
@@ -67,15 +67,15 @@ export abstract class AbstractCommonService implements CommonService {
         }
     }
 
-    public jsonCall (type = "get") {
+    public jsonCall (params = null) {
         if (this.configuration.getRequestType().toLowerCase()) {
-            type = this.configuration.getRequestType().toLowerCase();
+            let type = this.configuration.getRequestType().toLowerCase();
             switch (type) {
                 case "get":
-                    this.get();
+                    this.get(params);
                     break;
                 case "post":
-                    this.post();
+                    this.post(params);
                     break;
                 default:
                     console.error("No Type of Request provided");
@@ -84,7 +84,7 @@ export abstract class AbstractCommonService implements CommonService {
         }
     }
 
-    private get () {
+    private get (params = null) {
         try {
             this.http.get(this.getURI(), this.configuration.getHttpHeaderOptions()).map(
                 (res) => res
@@ -96,9 +96,9 @@ export abstract class AbstractCommonService implements CommonService {
         }
     }
 
-    private post () {
+    private post (params) {
         try {
-            this.http.post(this.getURI(), {}, this.configuration.getHttpHeaderOptions()).map(
+            this.http.post(this.getURI(), params, this.configuration.getHttpHeaderOptions()).map(
                 (res) => res
                 ).subscribe(
                 (data) => {this.processResponse(data)}, 
@@ -109,13 +109,13 @@ export abstract class AbstractCommonService implements CommonService {
     }
 
 
-    public startTx (eventType, txData) {
+    public start (eventType, txData : CommonModel, params = null) {
         let result = null;
         if (!this.helper.isEmpty(eventType) && !this.helper.isEmpty(this.configuration.getEntityType())) {
             this.event = eventType;
             this.txData = txData;
             if (this.configuration.verifyEvent(eventType)) {
-                this.getData();
+                this.getData(params);
             }
         }
         return result;

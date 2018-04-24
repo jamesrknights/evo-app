@@ -16,12 +16,12 @@ export class SessionService extends AbstractCommonService {
         super(http, jsonp, helper, config);
     }
 
-    public getData () {
-        return super.getData();
+    public getData (params) {
+        return super.getData(params);
     }
 
-    public startTx (eventType, txData) {
-        return super.startTx(eventType, txData);
+    public start (eventType, txData, params) {
+        return super.start(eventType, txData, params);
     }
 
     public processResponse (data) {

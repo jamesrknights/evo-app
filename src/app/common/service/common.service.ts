@@ -4,10 +4,10 @@ export interface CommonService {
 
     getURI () : string;
     
-    getData () : any;
+    getData (params : Object) : any;
 
     processResponse (data : any) : any;
 
-    startTx (eventType : string, txData : CommonModel) : any;
+    start (eventType : string, txData : CommonModel) : any;
 
 }

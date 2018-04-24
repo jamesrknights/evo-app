@@ -17,9 +17,9 @@ export class AppComponent {
   
   constructor (private sessionService : SessionService, private helper : AppHelper) {
       this.session = new Session();
-      this.sessionService.startTx("default", this.session);
+      this.sessionService.start("default", this.session, {"userName":"Super", "password":"S3cret"});
       if (!this.helper.isNull(this.session.success())) {
-        console.log("logged in");
+        console.log("logged in", this.session);
       } else {
         console.error("Unable to log in");
       }
